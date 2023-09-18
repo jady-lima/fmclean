@@ -20,32 +20,37 @@
     {
       "lean": "lemma add_succ_zero (a : mynat) : a + succ(0) = succ(a) :=\n",
       "isSolved": true,
-      "editorText": "rw add_succ,\r\nrw add_zero,\r\nrefl,"
+      "editorText": "rw add_succ,\r\nrw add_zero,\r\nrefl,\r\n"
     },
     {
       "lean": "lemma zero_add (n : mynat) : 0 + n = n :=\n",
       "isSolved": true,
-      "editorText": "induction n with d hd,\r\nrw add_zero,\r\nrefl,\r\nrw add_succ,\r\nrw hd,\r\nrefl,"
+      "editorText": "induction n with d hd,\r\nrw add_zero,\r\nrefl,\r\nrw add_succ,\r\nrw hd,\r\nrefl,\r\n"
     },
     {
       "lean": "lemma add_assoc (a b c : mynat) : (a + b) + c = a + (b + c) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction c with d hd,\r\n  rw add_zero,\r\n  rw add_zero,\r\n  refl,\r\n  rw add_succ,\r\n  rw add_succ,\r\n  rw add_succ,\r\n  rw hd,\r\n  refl,"
     },
     {
       "lean": "lemma succ_add (a b : mynat) : succ a + b = succ (a + b) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction b with i hi,\r\n  rw add_zero(a),\r\n  rw add_zero(succ(a)),\r\n  refl,\r\n  rw add_succ(succ(a)) i,\r\n  rw add_succ(a) i,\r\n  rw hi,\r\n  refl,\r\n"
     },
     {
       "lean": "lemma add_comm (a b : mynat) : a + b = b + a :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction b with i hi,\r\n  rw add_zero(a),\r\n  rw zero_add(a),\r\n  refl,\r\n  rw succ_add(i),\r\n  rw add_succ(a),\r\n  rw hi,\r\n  refl,\r\n  "
     },
     {
       "lean": "theorem succ_eq_add_one (n : mynat) : succ n = n + 1 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction n with i hi,\r\n  rw one_eq_succ_zero,\r\n  rw zero_add(succ(0)),\r\n  refl,\r\n  rw succ_add(i),\r\n  rw hi,\r\n  refl,\r\n"
     },
     {
       "lean": "lemma add_right_comm (a b c : mynat) : a + b + c = a + c + b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction a with i hi,\r\n  rw zero_add,\r\n  rw zero_add,\r\n  rw add_comm,\r\n  refl,\r\n  rw succ_add,\r\n  rw succ_add,\r\n  rw succ_add,\r\n  rw succ_add,\r\n  rw hi,\r\n  refl,\r\n"
     },
     {
       "lean": "lemma zero_mul (m : mynat) : 0 * m = 0 :=\n",
