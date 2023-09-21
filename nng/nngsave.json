@@ -54,11 +54,12 @@
     },
     {
       "lean": "lemma zero_mul (m : mynat) : 0 * m = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "induction m with i hi,\r\n  rw mul_zero(0),\r\n  refl,\r\n  rw mul_succ(0),\r\n  rw hi,\r\n  refl,\r\n"
     },
     {
       "lean": "lemma mul_one (m : mynat) : m * 1 = m :=\n",
-      "editorText": "sorry"
+      "editorText": "induction m with i hi,\r\n  rw zero_mul(1),\r\n  refl,\r\n  "
     },
     {
       "lean": "lemma one_mul (m : mynat) : 1 * m = m :=\n",
