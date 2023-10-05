@@ -25,7 +25,7 @@
     {
       "lean": "lemma zero_add (n : mynat) : 0 + n = n :=\n",
       "isSolved": true,
-      "editorText": "induction n with d hd,\r\nrw add_zero,\r\nrefl,\r\nrw add_succ,\r\nrw hd,\r\nrefl,\r\n"
+      "editorText": "induction n with d hd,\r\n  rw add_zero,\r\n  refl,\r\n  rw add_succ,\r\n  rw hd,\r\n  refl,\r\n"
     },
     {
       "lean": "lemma add_assoc (a b c : mynat) : (a + b) + c = a + (b + c) :=\n",
@@ -80,12 +80,12 @@
     {
       "lean": "lemma succ_mul (a b : mynat) : succ a * b = a * b + b :=\n",
       "isSolved": true,
-      "editorText": "rw succ_eq_add_one a,\r\ninduction b with b hb,\r\n  rw mul_zero,\r\n  rw mul_zero a,\r\n  rw add_zero,\r\n  refl,\r\n  rw succ_eq_add_one,\r\n  rw mul_add,\r\n  rw mul_one,\r\n  rw mul_add,\r\n  rw mul_one,\r\n  rw hb,\r\n  simp,\r\n    "
+      "editorText": "rw succ_eq_add_one a,\r\ninduction b with b hb,\r\n  rw mul_zero,\r\n  rw mul_zero a,\r\n  rw add_zero,\r\n  refl,\r\n  rw succ_eq_add_one,\r\n  rw mul_add,\r\n  rw mul_one,\r\n  rw mul_add,\r\n  rw mul_one,\r\n  rw hb,\r\n  rw add_assoc,\r\n  rw add_comm b (a + 1),\r\n  rw add_assoc,\r\n  rw add_comm b 1,\r\n  rw add_assoc,\r\n  refl,\r\n    "
     },
     {
       "lean": "lemma add_mul (a b t : mynat) : (a + b) * t = a * t + b * t :=\n",
       "isSolved": true,
-      "editorText": "induction b with b hb,\r\n  rw add_zero a,\r\n  rw zero_mul t,\r\n  rw add_zero (a * t),\r\n  refl,\r\n  rw add_succ a b,\r\n  rw succ_mul,\r\n  rw hb,\r\n  rw succ_mul b t,\r\n  simp,\r\n  "
+      "editorText": "induction b with b hb,\r\n  rw add_zero a,\r\n  rw zero_mul t,\r\n  rw add_zero (a * t),\r\n  refl,\r\n  rw add_succ a b,\r\n  rw succ_mul,\r\n  rw hb,\r\n  rw succ_mul b t,\r\n  rw add_assoc,\r\n  refl,\r\n  "
     },
     {
       "lean": "lemma mul_comm (a b : mynat) : a * b = b * a :=\n",
@@ -120,12 +120,12 @@
     {
       "lean": "lemma pow_add (a m n : mynat) : a ^ (m + n) = a ^ m * a ^ n :=\n",
       "isSolved": true,
-      "editorText": "induction n with n hn,\r\n  rw pow_zero a,\r\n  rw mul_one (a ^ m),\r\n  rw add_zero m,\r\n  refl,\r\n  rw add_succ m n,\r\n  rw pow_succ a (m + n),\r\n  rw pow_succ a n,\r\n  rw hn,\r\n  simp,\r\n  "
+      "editorText": "induction n with n hn,\r\n  rw pow_zero a,\r\n  rw mul_one (a ^ m),\r\n  rw add_zero m,\r\n  refl,\r\n  rw add_succ m n,\r\n  rw pow_succ a (m + n),\r\n  rw pow_succ a n,\r\n  rw hn,\r\n  rw mul_assoc,\r\n  refl,\r\n  "
     },
     {
       "lean": "lemma mul_pow (a b n : mynat) : (a * b) ^ n = a ^ n * b ^ n :=\n",
       "isSolved": true,
-      "editorText": "induction n with n hn,\r\n  rw pow_zero (a * b),\r\n  rw pow_zero a,\r\n  rw pow_zero b,\r\n  rw mul_one,\r\n  refl,\r\n  rw pow_succ (a * b) n,\r\n  rw hn,\r\n  rw mul_left_comm,\r\n  rw pow_succ a,\r\n  rw pow_succ b,\r\n  simp,\r\n"
+      "editorText": "induction n with n hn,\r\n  rw pow_zero (a * b),\r\n  rw pow_zero a,\r\n  rw pow_zero b,\r\n  rw mul_one,\r\n  refl,\r\n  rw pow_succ (a * b) n,\r\n  rw hn,\r\n  rw mul_left_comm,\r\n  rw pow_succ a,\r\n  rw pow_succ b,\r\n  rw mul_comm (a ^ n) a,\r\n  rw mul_assoc,\r\n  rw mul_assoc,\r\n  refl,\r\n"
     },
     {
       "lean": "lemma pow_pow (a m n : mynat) : (a ^ m) ^ n = a ^ (m * n) :=\n",
@@ -135,43 +135,52 @@
     {
       "lean": "lemma add_squared (a b : mynat) :\n  (a + b) ^ (2 : mynat) = a ^ (2 : mynat) + b ^ (2 : mynat) + 2 * a * b :=\n",
       "isSolved": true,
-      "editorText": "rw two_eq_succ_one,\r\nrw one_eq_succ_zero,\r\nrepeat {rw pow_succ},\r\nrw pow_zero (a + b),\r\nrw pow_zero a,\r\nrw pow_zero b,\r\nrw succ_mul,\r\nrw succ_mul,\r\nrw zero_mul a,\r\nrw zero_add a,\r\nrw one_mul (a + b),\r\nrw one_mul a,\r\nrw one_mul b,\r\nrw mul_add,\r\nrw add_mul,\r\nrw add_mul,\r\nrw add_mul,\r\nsimp,\r\n"
+      "editorText": "rw two_eq_succ_one,\r\nrw one_eq_succ_zero,\r\nrepeat {rw pow_succ},\r\nrw pow_zero (a + b),\r\nrw pow_zero a,\r\nrw pow_zero b,\r\nrw succ_mul,\r\nrw succ_mul,\r\nrw zero_mul a,\r\nrw zero_add a,\r\nrw one_mul (a + b),\r\nrw one_mul a,\r\nrw one_mul b,\r\nrw mul_add,\r\nrw add_mul,\r\nrw add_mul,\r\nrw add_mul,\r\nrw add_comm (a * b) (b * b),\r\nrw add_assoc,\r\nrw add_comm (b * a) ((b*b)+(a*b)),\r\nrw add_assoc,\r\nrw add_assoc,\r\nrw mul_comm b a,\r\nrefl,\r\n"
     },
     {
       "lean": "example (P Q : Type) (p : P) (h : P → Q) : Q :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "exact h(p),\r\n"
     },
     {
       "lean": "example : mynat → mynat :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro n,\r\nexact (5 * n) + 0,\r\n"
     },
     {
       "lean": "example (P Q R S T U: Type)\n(p : P)\n(h : P → Q)\n(i : Q → R)\n(j : Q → T)\n(k : S → T)\n(l : T → U)\n: U :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "have q := h(p),\r\nhave i : R := i(q),\r\nhave t : T := j(q),\r\nhave u : U := l(t),\r\nexact u,"
     },
     {
       "lean": "example (P Q R S T U: Type)\n(p : P)\n(h : P → Q)\n(i : Q → R)\n(j : Q → T)\n(k : S → T)\n(l : T → U)\n: U :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "apply l,\r\napply j,\r\napply h,\r\nexact p,\r\n"
     },
     {
       "lean": "example (P Q : Type) : P → (Q → P) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro p,\r\nintro q,\r\nexact p,\r\n"
     },
     {
       "lean": "example (P Q R : Type) : (P → (Q → R)) → ((P → Q) → (P → R)) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro f,\r\nintro h,\r\nintro p,\r\napply f,\r\nexact p,\r\napply h,\r\nexact p,\r\n"
     },
     {
       "lean": "example (P Q F : Type) : (P → Q) → ((Q → F) → (P → F)) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro f,\r\nintro h,\r\nintro p,\r\napply h,\r\napply f,\r\nexact p,\r\n"
     },
     {
       "lean": "example (P Q : Type) : (P → Q) → ((Q → empty) → (P → empty)) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro f,\r\nintro h,\r\nintro p,\r\napply h,\r\napply f,\r\nexact p,\r\n"
     },
     {
       "lean": "example (A B C D E F G H I J K L : Type)\n(f1 : A → B) (f2 : B → E) (f3 : E → D) (f4 : D → A) (f5 : E → F)\n(f6 : F → C) (f7 : B → C) (f8 : F → G) (f9 : G → J) (f10 : I → J)\n(f11 : J → I) (f12 : I → H) (f13 : E → H) (f14 : H → K) (f15 : I → L)\n : A → L :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro a,\r\napply f15,\r\napply f11,\r\napply f9,\r\napply f8,\r\napply f5,\r\napply f2,\r\napply f1,\r\nexact a,\r\n"
     },
     {
       "lean": "example (P Q : Prop) (p : P) (h : P → Q) : Q :=\n",
