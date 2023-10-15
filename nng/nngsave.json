@@ -270,7 +270,7 @@
     {
       "lean": "lemma contra (P Q : Prop) : (P ∧ ¬ P) → Q :=\n",
       "isSolved": true,
-      "editorText": "intro pp,\r\ncases pp with p np,\r\nexfalso,\r\nrw not_iff_imp_false at np,\r\napply np,\r\nexact p,\r\n"
+      "editorText": "intro pp,\r\ncases pp with p np,\r\n  exfalso,\r\n  rw not_iff_imp_false at np,\r\n  apply np,\r\n  exact p,\r\n"
     },
     {
       "lean": "lemma contrapositive2 (P Q : Prop) : (¬ Q → ¬ P) → (P → Q) :=\n",
@@ -279,31 +279,36 @@
     },
     {
       "lean": "theorem succ_inj' {a b : mynat} (hs : succ(a) = succ(b)) :  a = b := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "apply succ_inj,\r\nexact hs,\r\n"
     },
     {
       "lean": "theorem succ_succ_inj {a b : mynat} (h : succ(succ(a)) = succ(succ(b))) :  a = b := \n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "apply succ_inj,\r\napply succ_inj,\r\nexact h,\r\n"
     },
     {
       "lean": "theorem succ_eq_succ_of_eq {a b : mynat} : a = b → succ(a) = succ(b) :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro ab,\r\nrw ab,\r\nrefl,\r\n"
     },
     {
       "lean": "theorem succ_eq_succ_iff (a b : mynat) : succ a = succ b ↔ a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "split,\r\n  exact succ_inj,\r\n  exact succ_eq_succ_of_eq,\r\n"
     },
     {
       "lean": "theorem add_right_cancel (a t b : mynat) : a + t = b + t → a = b :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\ninduction t with t ht,\r\n  rw add_zero at h,\r\n  rw add_zero at h,\r\n  exact h,\r\n  rw add_succ at h,\r\n  rw add_succ at h,\r\n  apply ht,\r\n  apply succ_inj,\r\n  exact h,\r\n"
     },
     {
       "lean": "theorem add_left_cancel (t a b : mynat) : t + a = t + b → a = b :=\n",
-      "editorText": "sorry"
+      "editorText": "intro h,\r\nrw add_comm at h t a,\r\nrw add_comm at h t b,\r\napply add_right_cancel,\r\n"
     },
     {
       "lean": "theorem add_right_cancel_iff (t a b : mynat) :  a + t = b + t ↔ a = b :=\n",
-      "editorText": "sorry"
+      "editorText": "split,\r\n  \r\nsorry"
     },
     {
       "lean": "lemma eq_zero_of_add_right_eq_self {a b : mynat} : a + b = a → b = 0 :=\n",
