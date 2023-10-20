@@ -1,2 +1,6 @@
 /build
 /lake-packages/*
+Fmclean.lean
+lakefile.lean
+lean-toolchain
+Main.lean
