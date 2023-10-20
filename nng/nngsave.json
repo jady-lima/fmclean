@@ -314,7 +314,8 @@
     },
     {
       "lean": "lemma eq_zero_of_add_right_eq_self {a b : mynat} : a + b = a → b = 0 :=\n",
-      "editorText": "cases b,\r\n  intro h1,\r\n  refl,\r\n  intro h2,\r\n  "
+      "isSolved": true,
+      "editorText": "intro h,\r\napply add_left_cancel a b 0 h,"
     },
     {
       "lean": "theorem succ_ne_zero (a : mynat) : succ a ≠ 0 := \n",
@@ -323,11 +324,13 @@
     },
     {
       "lean": "lemma add_left_eq_zero {{a b : mynat}} (H : a + b = 0) : b = 0 :=\n",
-      "editorText": "cases b with d,\r\n  refl,\r\n  rw add_succ at H,\r\n  exfalso,\r\n  "
+      "isSolved": true,
+      "editorText": "cases b with d,\r\n  refl,\r\n  rw add_succ at H,\r\n  exfalso,\r\n  have nH: succ (a+d) ≠ 0 := succ_ne_zero (a+d),\r\n  apply nH H,"
     },
     {
       "lean": "lemma add_right_eq_zero {a b : mynat} : a + b = 0 → a = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "intro h,\r\nrw add_comm at h,\r\napply add_left_eq_zero h,\r\n"
     },
     {
       "lean": "theorem add_one_eq_succ (d : mynat) : d + 1 = succ d :=\n",
@@ -336,23 +339,23 @@
     },
     {
       "lean": "lemma ne_succ_self (n : mynat) : n ≠ succ n :=\n",
-      "editorText": "cases n,\r\n  apply zero_ne_succ,\r\n  \r\nsorry"
+      "editorText": "cases n with d,\r\n  apply zero_ne_succ,\r\n  intro h,\r\n  have nH: succ d ≠ 0 := succ_ne_zero d,\r\n  apply nH,\r\n  rw h,"
     },
     {
       "lean": "theorem mul_pos (a b : mynat) : a ≠ 0 → b ≠ 0 → a * b ≠ 0 :=\n",
-      "editorText": "sorry"
+      "editorText": "intro h1,\r\nintro h2,\r\nintro h3,\r\ncases b with n,\r\n  apply h2,\r\n  refl,\r\n  "
     },
     {
       "lean": "theorem eq_zero_or_eq_zero_of_mul_eq_zero (a b : mynat) (h : a * b = 0) :\n  a = 0 ∨ b = 0 :=\n",
-      "editorText": "sorry"
+      "editorText": "left,\r\n\r\nsorry"
     },
     {
       "lean": "theorem mul_eq_zero_iff (a b : mynat): a * b = 0 ↔ a = 0 ∨ b = 0 :=\n",
-      "editorText": "sorry"
+      "editorText": "\r\nsorry"
     },
     {
       "lean": "theorem mul_left_cancel (a b c : mynat) (ha : a ≠ 0) : a * b = a * c → b = c :=\n",
-      "editorText": "sorry"
+      "editorText": "intro abc,\r\nsorry"
     },
     {
       "lean": "lemma one_add_le_self (x : mynat) : x ≤ 1 + x :=\n",
