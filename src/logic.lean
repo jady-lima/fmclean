@@ -167,7 +167,7 @@ theorem demorgan_disj_converse :
   (¬P ∧ ¬Q) → ¬(P∨Q)  := by
   intro npnq
   intro notpq
-  
+
 
 
 
