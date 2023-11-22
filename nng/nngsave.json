@@ -339,7 +339,7 @@
     },
     {
       "lean": "lemma ne_succ_self (n : mynat) : n ≠ succ n :=\n",
-      "editorText": "cases n with d,\r\n  apply zero_ne_succ,\r\n  intro h,\r\n  have nH: succ d ≠ 0 := succ_ne_zero d,\r\n  apply nH,\r\n  rw h,"
+      "editorText": "intro h,\r\nhave h2: (0 = succ 0):= add_left_cancel n 0 (succ 0) h,\r\napply zero_ne_succ 0,\r\napply h2,\r\n"
     },
     {
       "lean": "theorem mul_pos (a b : mynat) : a ≠ 0 → b ≠ 0 → a * b ≠ 0 :=\n",
@@ -358,7 +358,7 @@
     },
     {
       "lean": "theorem mul_left_cancel (a b c : mynat) (ha : a ≠ 0) : a * b = a * c → b = c :=\n",
-      "editorText": "induction c with d hd generalizing b,\r\n  rw mul_zero,\r\n  rw mul_eq_zero_iff,\r\n  intro hab,\r\n  cases hab,\r\n    exfalso,\r\n    apply ha,\r\n    apply hab,\r\n    apply hab,\r\n  induction b with b hb,\r\n    rw mul_zero,\r\n    intro asd,\r\n    rw asd,\r\n    \r\n"
+      "editorText": "induction c with d hd generalizing b,\r\nrw mul_zero,\r\nrw mul_eq_zero_iff,\r\nintro hab,\r\ncases hab,\r\nexfalso,\r\napply ha, \r\napply hab,\r\napply hab,\r\nintro h,\r\ncases b,\r\nrw mul_zero at h,\r\nsymmetry at h,\r\nhave nH: (a = 0) := add_left_eq_zero h,\r\nexfalso,\r\napply ha, \r\n apply nH, \r\nrw mul_succ at h, \r\nrw mul_succ at h, \r\nhave nH: (a * b = a * d) := add_right_cancel (a * b) a (a * d) h, \r\nhave hbd: (b = d) := hd b nH, \r\napply succ_eq_succ_of_eq,\r\nexact hbd,\r\n"
     },
     {
       "lean": "lemma one_add_le_self (x : mynat) : x ≤ 1 + x :=\n",
@@ -377,19 +377,24 @@
     },
     {
       "lean": "lemma zero_le (a : mynat) : 0 ≤ a :=\n",
-      "editorText": "cases a,\r\n  use 0,\r\n  rw zero_add,\r\n  refl,\r\n  use 1,\r\n  rw succ_eq_add_one,\r\n  rw zero_add,\r\n  exfalso,\r\n  "
+      "isSolved": true,
+      "editorText": "use a,\r\nrw zero_add a,\r\nrefl,\r\n"
     },
     {
       "lean": "theorem le_trans (a b c : mynat) (hab : a ≤ b) (hbc : b ≤ c) : a ≤ c :=\n",
-      "editorText": "induction hbc with h hc,\r\n  induction hab with h ha,\r\n    rw hc,\r\n    rw ha,\r\n    rw le_iff_exists_add,"
+      "isSolved": true,
+      "editorText": "cases hab with h h1,\r\n  cases hbc with g g1,\r\n    rw h1 at g1,\r\n    use (h + g),\r\n    rw add_assoc a h g at g1,\r\n   exact g1,\r\n "
     },
     {
       "lean": "theorem le_antisymm (a b : mynat) (hab : a ≤ b) (hba : b ≤ a) : a = b :=\n",
-      "editorText": "\r\n\r\n"
+      "isSolved": true,
+      "editorText": "
+      cases hab with h h1,\r\ncases hba with g g1,\r\nrw h1 at g1,\r\nrw add_assoc at g1,\r\nsymmetry at g1,\r\nhave hgz : (h + g = 0) := eq_zero_of_add_right_eq_self g1,\r\nhave hz : (h = 0) := add_right_eq_zero hgz,\r\nrw hz at h1,\r\nrw add_zero at h1,\r\nsymmetry at h1,\r\nexact h1,\r\n"
     },
     {
       "lean": "lemma le_zero (a : mynat) (h : a ≤ 0) : a = 0 :=\n",
-      "editorText": "sorry"
+      "isSolved": true,
+      "editorText": "cases h with d hd,\r\n  symmetry at hd,\r\n  apply add_right_eq_zero hd,\r\n"
     },
     {
       "lean": "lemma succ_le_succ (a b : mynat) (h : a ≤ b) : succ a ≤ succ b :=\n",
